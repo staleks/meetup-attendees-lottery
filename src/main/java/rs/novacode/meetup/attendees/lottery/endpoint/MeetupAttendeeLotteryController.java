@@ -21,16 +21,16 @@ public class MeetupAttendeeLotteryController {
     private final String FETCH_ALL_MEETUP_ATTENDEES_ENDPOINT = "/attendees-all";
     private final String PICK_ONE_ATTENDEE_BY_LOTTERY = "/pick-one";
 
-    private final AttendeesLotteryUseCase attendieesLotteryUseCase;
+    private final AttendeesLotteryUseCase attendeesLotteryUseCase;
 
     @GetMapping(value = FETCH_ALL_MEETUP_ATTENDEES_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MeetupMember>> findAll() {
-        return ok(attendieesLotteryUseCase.fetchAll());
+        return ok(attendeesLotteryUseCase.fetchAll());
     }
 
     @GetMapping(value = PICK_ONE_ATTENDEE_BY_LOTTERY, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MeetupMember> pickOne() {
-        return ok(attendieesLotteryUseCase.pickOneByLottery());
+        return ok(attendeesLotteryUseCase.pickOneByLottery());
     }
 
 }
