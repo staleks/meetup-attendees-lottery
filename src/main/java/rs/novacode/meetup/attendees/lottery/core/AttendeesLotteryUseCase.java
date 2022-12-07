@@ -4,7 +4,7 @@ import rs.novacode.meetup.attendees.lottery.model.MeetupMember;
 
 import java.util.List;
 
-public interface AttendieesLotteryUseCase {
+public interface AttendeesLotteryUseCase {
 
     MeetupMember pickOneByLottery();
 

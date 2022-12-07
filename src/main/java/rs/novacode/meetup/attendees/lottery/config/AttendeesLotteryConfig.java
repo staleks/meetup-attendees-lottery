@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.client.RestTemplate;
-import rs.novacode.meetup.attendees.lottery.core.AttendieesLotteryService;
-import rs.novacode.meetup.attendees.lottery.core.AttendieesLotteryUseCase;
+import rs.novacode.meetup.attendees.lottery.core.AttendeesLotteryService;
+import rs.novacode.meetup.attendees.lottery.core.AttendeesLotteryUseCase;
 import rs.novacode.meetup.attendees.lottery.endpoint.MeetupAttendeeLotteryController;
 
 @Import({
@@ -26,12 +26,12 @@ public class AttendeesLotteryConfig {
     }
 
     @Bean
-    public AttendieesLotteryUseCase attendieesLotteryUseCase(final RestTemplate restTemplate) {
-        return new AttendieesLotteryService(restTemplate);
+    public AttendeesLotteryUseCase attendieesLotteryUseCase(final RestTemplate restTemplate) {
+        return new AttendeesLotteryService(restTemplate);
     }
 
     @Bean
-    public MeetupAttendeeLotteryController meetupAttendeeLotteryController(final AttendieesLotteryUseCase attendieesLotteryUseCase) {
+    public MeetupAttendeeLotteryController meetupAttendeeLotteryController(final AttendeesLotteryUseCase attendieesLotteryUseCase) {
         return new MeetupAttendeeLotteryController(attendieesLotteryUseCase);
     }
 

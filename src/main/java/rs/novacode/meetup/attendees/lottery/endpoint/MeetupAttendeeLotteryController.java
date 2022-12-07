@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rs.novacode.meetup.attendees.lottery.core.AttendieesLotteryUseCase;
+import rs.novacode.meetup.attendees.lottery.core.AttendeesLotteryUseCase;
 import rs.novacode.meetup.attendees.lottery.model.MeetupMember;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class MeetupAttendeeLotteryController {
     private final String FETCH_ALL_MEETUP_ATTENDEES_ENDPOINT = "/attendees-all";
     private final String PICK_ONE_ATTENDEE_BY_LOTTERY = "/pick-one";
 
-    private final AttendieesLotteryUseCase attendieesLotteryUseCase;
+    private final AttendeesLotteryUseCase attendieesLotteryUseCase;
 
     @GetMapping(value = FETCH_ALL_MEETUP_ATTENDEES_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MeetupMember>> findAll() {

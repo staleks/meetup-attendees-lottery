@@ -10,36 +10,40 @@ import rs.novacode.meetup.attendees.lottery.core.exception.MeetupMemberException
 import rs.novacode.meetup.attendees.lottery.model.MeetupAttendeeResponses;
 import rs.novacode.meetup.attendees.lottery.model.MeetupMember;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class AttendieesLotteryService implements AttendieesLotteryUseCase {
+public class AttendeesLotteryService implements AttendeesLotteryUseCase {
+
+    private static final Integer MEETUP_ATTENDEES_ZERO_BASED_RESPONSE_INDEX = 0;
 
     @Value("${meetup.baseUrl}")
     private String meetupUrl;
+
+    @Value("${meetup.presenterId}")
+    private Long presenterId;
 
     private Map<Long, MeetupMember> meetupAttendees;
 
     private final RestTemplate restTemplate;
 
-    public AttendieesLotteryService(final RestTemplate restTemplate) {
+    public AttendeesLotteryService(final RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         this.meetupAttendees = new HashMap<>();
     }
 
     @Override
     public MeetupMember pickOneByLottery() {
-        List<MeetupMember> attendeesForLottery = new ArrayList<>();
-        for (Long keyValue: meetupAttendees.keySet()) {
-            MeetupMember meetupMemberItem = meetupAttendees.get(keyValue);
-            if (!meetupMemberItem.isOrganizer()) {
-                attendeesForLottery.add(meetupMemberItem);
-            }
-        }
+        List<MeetupMember> attendeesForLottery = meetupAttendees.values()
+            .stream()
+            //~ filter out organizers
+            .filter(m -> !m.isOrganizer())
+            //~ filter out myself
+            .filter(m -> !presenterId.equals(m.getId()))
+            .collect(Collectors.toList());
 
         RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
         int randomNumber = randomDataGenerator.nextInt(0, attendeesForLottery.size()-1);
@@ -56,7 +60,10 @@ public class AttendieesLotteryService implements AttendieesLotteryUseCase {
         try {
             ResponseEntity<MeetupAttendeeResponses> response = restTemplate.getForEntity(meetupUrl, MeetupAttendeeResponses.class);
 
-            List<MeetupMember> meetupMembersList = response.getBody().getResponses().get(0).getValue().stream()
+            List<MeetupMember> meetupMembersList = response.getBody()
+                .getResponses()
+                .get(MEETUP_ATTENDEES_ZERO_BASED_RESPONSE_INDEX).getValue()
+                .stream()
                 .map(e -> e.getMeetupMember())
                 .collect(Collectors.toList());
             log.info("Size of the list: {}", meetupMembersList.size());
