@@ -32,4 +32,7 @@ public class MeetupMember {
     @JsonProperty("photo")
     private Photo photo;
 
+    @JsonProperty("role")
+    private String role;
+
 }

@@ -20,6 +20,9 @@ public class AttendeesLotteryService implements AttendeesLotteryUseCase {
 
     private static final Integer MEETUP_ATTENDEES_ZERO_BASED_RESPONSE_INDEX = 0;
 
+    private static final String ORGANIZER_ROLE = "organizer";
+    private static final String CO_ORGANIZER_ROLE = "coorganizer";
+
     @Value("${meetup.baseUrl}")
     private String meetupUrl;
 
@@ -41,9 +44,14 @@ public class AttendeesLotteryService implements AttendeesLotteryUseCase {
             .stream()
             //~ filter out organizers
             .filter(m -> !m.isOrganizer())
+            .filter(m -> !ORGANIZER_ROLE.equals(m.getRole()))
+            //~ filter out co-organizerss
+            .filter(m -> !CO_ORGANIZER_ROLE.equals(m.getRole()))
             //~ filter out myself
             .filter(m -> !presenterId.equals(m.getId()))
             .collect(Collectors.toList());
+
+        log.info("Size of filtered list: {}", attendeesForLottery);
 
         RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
         int randomNumber = randomDataGenerator.nextInt(0, attendeesForLottery.size()-1);
