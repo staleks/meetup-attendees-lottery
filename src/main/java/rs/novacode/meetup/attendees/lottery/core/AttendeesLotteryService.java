@@ -45,13 +45,13 @@ public class AttendeesLotteryService implements AttendeesLotteryUseCase {
             //~ filter out organizers
             .filter(m -> !m.isOrganizer())
             .filter(m -> !ORGANIZER_ROLE.equals(m.getRole()))
-            //~ filter out co-organizerss
+            //~ filter out co-organizers
             .filter(m -> !CO_ORGANIZER_ROLE.equals(m.getRole()))
             //~ filter out myself
             .filter(m -> !presenterId.equals(m.getId()))
             .collect(Collectors.toList());
 
-        log.info("Size of filtered list: {}", attendeesForLottery);
+        log.info("Size of filtered list: {}", attendeesForLottery.size());
 
         RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
         int randomNumber = randomDataGenerator.nextInt(0, attendeesForLottery.size()-1);
