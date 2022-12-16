@@ -2,3 +2,16 @@ meetup:
   baseUrl: "https://www.meetup.com/mu_api/urlname/events/eventId/attendees?queries=(endpoint:geekstone/events/289946779/rsvps,meta:(method:get),params:(desc:!t,fields:'answers,pay_status,self,web_actions,attendance_status',only:'answers,response,attendance_status,guests,member,pay_status,updated',order:time),ref:eventAttendees_geekstone_289946779,type:attendees)"
   presenterId: 97397052
 
+rest:
+  client:
+    http:
+      request:
+        timeout: 30000
+      connection:
+        timeout: 30000
+      socket:
+        timeout: 30000
+      max:
+        connections: 50
+        per:
+          route: 5

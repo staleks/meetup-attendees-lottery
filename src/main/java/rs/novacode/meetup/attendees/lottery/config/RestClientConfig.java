@@ -35,8 +35,8 @@ public class RestClientConfig {
     public RestTemplate restTemplate() {
         RequestConfig requestConfig = RequestConfig.custom()
             .setResponseTimeout(5000, TimeUnit.MILLISECONDS)
-            .setConnectTimeout(5000, TimeUnit.MILLISECONDS)
-            .setConnectionRequestTimeout(5000, TimeUnit.MILLISECONDS)
+            .setConnectTimeout(connectTimeout, TimeUnit.MILLISECONDS)
+            .setConnectionRequestTimeout(requestTimeout, TimeUnit.MILLISECONDS)
             .build();
         CloseableHttpClient httpclient = HttpClients.custom()
             .setDefaultRequestConfig(requestConfig)

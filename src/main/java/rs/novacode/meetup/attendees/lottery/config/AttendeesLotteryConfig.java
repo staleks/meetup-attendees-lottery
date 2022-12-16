@@ -26,13 +26,13 @@ public class AttendeesLotteryConfig {
     }
 
     @Bean
-    public AttendeesLotteryUseCase attendieesLotteryUseCase(final RestTemplate restTemplate) {
+    public AttendeesLotteryUseCase attendeesLotteryUseCase(final RestTemplate restTemplate) {
         return new AttendeesLotteryService(restTemplate);
     }
 
     @Bean
-    public MeetupAttendeeLotteryController meetupAttendeeLotteryController(final AttendeesLotteryUseCase attendieesLotteryUseCase) {
-        return new MeetupAttendeeLotteryController(attendieesLotteryUseCase);
+    public MeetupAttendeeLotteryController meetupAttendeeLotteryController(final AttendeesLotteryUseCase attendeesLotteryUseCase) {
+        return new MeetupAttendeeLotteryController(attendeesLotteryUseCase);
     }
 
 }

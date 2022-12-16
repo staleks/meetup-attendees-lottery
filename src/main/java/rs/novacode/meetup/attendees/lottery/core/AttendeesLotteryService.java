@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-import rs.novacode.meetup.attendees.lottery.core.exception.MeetupMemberException;
+import rs.novacode.meetup.attendees.lottery.core.exception.MeetupAPIException;
 import rs.novacode.meetup.attendees.lottery.model.MeetupAttendeeResponses;
 import rs.novacode.meetup.attendees.lottery.model.MeetupMember;
 
@@ -80,7 +80,7 @@ public class AttendeesLotteryService implements AttendeesLotteryUseCase {
             }
             return meetupMembersList;
         } catch (final RestClientException rcEx) {
-            throw new MeetupMemberException(MeetupMemberException.CAN_NOT_ACCESS_MEETUP_API);
+            throw new MeetupAPIException(MeetupAPIException.CAN_NOT_ACCESS_MEETUP_API);
         }
     }
 

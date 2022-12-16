@@ -14,10 +14,8 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MeetupMember {
 
-    @JsonProperty("id")
     private Long id;
 
-    @JsonProperty("name")
     private String name;
 
     @JsonProperty("web_actions")
@@ -29,10 +27,8 @@ public class MeetupMember {
     @JsonProperty("is_member_plus_subscriber")
     private boolean isMemberPlusSubscriber;
 
-    @JsonProperty("photo")
     private Photo photo;
 
-    @JsonProperty("role")
     private String role;
 
 }
